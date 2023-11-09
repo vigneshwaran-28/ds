@@ -1,0 +1,26 @@
+
+    verticalTraversal(root) {
+        const nodeInfos = []; 
+        getNodeInfos(root, 0, 0);
+        
+        nodeInfos.sort((a, b) => a[0] - b[0] || b[1] - a[1] || a[2] - b[2]);
+        const map = new Map();
+        
+        for (const [x, y, val] of nodeInfos) {
+            if (!map.has(x)) 
+                map.set(x, []);
+            map.get(x).push(val);
+        }
+       
+       
+
+        return [...map.values()];
+        
+        function getNodeInfos(node, x, y) {
+            if (node) {
+                getNodeInfos(node.left, x - 1, y - 1); // traverse left
+                nodeInfos.push([x, y, node.data]);
+                getNodeInfos(node.right, x + 1, y - 1); // traverse right
+            }
+        }
+    }
